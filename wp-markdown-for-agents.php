@@ -26,7 +26,7 @@ define( 'MD_FOR_AGENTS_VERSION', '1.0.0' );
 define( 'MD_FOR_AGENTS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MD_FOR_AGENTS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
-require_once MD_FOR_AGENTS_PLUGIN_DIR . 'includes/class-markdown-converter.php';
+require_once MD_FOR_AGENTS_PLUGIN_DIR . 'includes/class-md-for-agents-markdown-converter.php';
 require_once MD_FOR_AGENTS_PLUGIN_DIR . 'includes/class-md-for-agents-button-injector.php';
 require_once MD_FOR_AGENTS_PLUGIN_DIR . 'includes/class-md-for-agents-url-handler.php';
 
