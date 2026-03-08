@@ -1,0 +1,75 @@
+/**
+ * Markdown for AI Agents — Button styles
+ *
+ * Neutral design that adapts to any WordPress theme.
+ */
+
+.md-agent-button-wrapper {
+    margin-bottom: 1.5em;
+    text-align: right;
+}
+
+.md-agent-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.45em 1em;
+    font-size: 0.82rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #24292f;
+    background-color: #f6f8fa;
+    border: 1px solid rgba(31, 35, 40, 0.15);
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.md-agent-button:hover,
+.md-agent-button:focus {
+    background-color: #eaeef2;
+    border-color: rgba(31, 35, 40, 0.25);
+    text-decoration: none;
+    color: #24292f;
+    outline: none;
+}
+
+.md-agent-button:focus-visible {
+    box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.3);
+}
+
+.md-agent-button:active {
+    background-color: #d8dee4;
+}
+
+.md-agent-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+/* Dark theme support via prefers-color-scheme */
+@media (prefers-color-scheme: dark) {
+    .md-agent-button {
+        color: #e6edf3;
+        background-color: #21262d;
+        border-color: rgba(240, 246, 252, 0.1);
+    }
+
+    .md-agent-button:hover,
+    .md-agent-button:focus {
+        background-color: #30363d;
+        border-color: rgba(240, 246, 252, 0.2);
+        color: #e6edf3;
+    }
+
+    .md-agent-button:focus-visible {
+        box-shadow: 0 0 0 3px rgba(58, 138, 255, 0.3);
+    }
+
+    .md-agent-button:active {
+        background-color: #3a424b;
+    }
+}
