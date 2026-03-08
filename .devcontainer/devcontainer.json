@@ -32,8 +32,7 @@
 					"*.inc": "php"
 				},
 				"[php]": {
-					"editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
-					"editor.formatOnSave": true
+					"editor.formatOnSave": false
 				},
 				"intelephense.environment.phpVersion": "8.3.0",
 				"intelephense.files.exclude": [

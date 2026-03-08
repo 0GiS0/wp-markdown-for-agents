@@ -20,6 +20,8 @@ wp plugin list --path=/srv/wordpress
 wp option get siteurl --path=/srv/wordpress
 ```
 
+PHP auto-format on save is disabled in the dev container because Intelephense formatting conflicts with the repository WPCS ruleset. Use the `fix php style` VS Code task or run `vendor/bin/phpcbf --standard=phpcs.xml.dist` when you want to apply style fixes.
+
 Install the PHP development tools:
 
 ```bash
