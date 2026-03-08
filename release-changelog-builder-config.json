@@ -1,0 +1,64 @@
+{
+  "categories": [
+    {
+      "title": "## ✨ Improvements",
+      "labels": [
+        "✨ enhancement",
+        "enhancement",
+        "🎨 ux",
+        "⚡ performance"
+      ]
+    },
+    {
+      "title": "## 🐞 Fixes",
+      "labels": [
+        "🐞 bug",
+        "bug"
+      ]
+    },
+    {
+      "title": "## 📝 Markdown & Content",
+      "labels": [
+        "📝 markdown",
+        "🤖 ai-agents"
+      ]
+    },
+    {
+      "title": "## 🧱 WordPress",
+      "labels": [
+        "🧱 wordpress",
+        "📦 packaging"
+      ]
+    },
+    {
+      "title": "## 🧪 CI & Releases",
+      "labels": [
+        "🧪 ci",
+        "🏷️ release"
+      ]
+    },
+    {
+      "title": "## 📚 Documentation",
+      "labels": [
+        "📚 documentation",
+        "documentation"
+      ]
+    }
+  ],
+  "ignore_labels": [
+    "skip-changelog"
+  ],
+  "sort": {
+    "order": "ASC",
+    "on_property": "mergedAt"
+  },
+  "template": "#{{CHANGELOG}}\n\n---\n\n**Full Changelog**: #{{RELEASE_DIFF}}\n",
+  "pr_template": "- #{{TITLE}} ([##{{NUMBER}}](#{{URL}})) @#{{AUTHOR}}",
+  "empty_template": "No merged pull requests matched the changelog categories for this release.",
+  "tag_resolver": {
+    "method": "semver"
+  },
+  "base_branches": [
+    "main"
+  ]
+}

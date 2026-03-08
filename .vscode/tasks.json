@@ -12,12 +12,58 @@
       "problemMatcher": []
     },
     {
+      "label": "install git hooks",
+      "type": "shell",
+      "command": "chmod",
+      "args": [
+        "+x",
+        "install-git-hooks.sh",
+        ".githooks/pre-commit"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "package plugin zip",
       "type": "shell",
       "command": "./package-plugin.sh",
       "dependsOn": "build plugin zip",
       "problemMatcher": [],
       "group": "build"
+    },
+    {
+      "label": "setup development hooks",
+      "type": "shell",
+      "command": "./install-git-hooks.sh",
+      "dependsOn": "install git hooks",
+      "problemMatcher": []
+    },
+    {
+      "label": "lint php",
+      "type": "shell",
+      "command": "composer",
+      "args": [
+        "lint:php"
+      ],
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "lint all",
+      "type": "shell",
+      "command": "composer",
+      "args": [
+        "lint"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "fix php style",
+      "type": "shell",
+      "command": "vendor/bin/phpcbf",
+      "args": [
+        "--standard=phpcs.xml.dist"
+      ],
+      "problemMatcher": []
     }
   ]
 }

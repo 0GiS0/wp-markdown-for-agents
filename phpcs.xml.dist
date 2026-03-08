@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruleset name="Markdown for AI Agents">
+  <description>PHP quality and security checks for the plugin.</description>
+
+  <file>wp-markdown-for-agents.php</file>
+  <file>includes</file>
+
+  <exclude-pattern>vendor/*</exclude-pattern>
+  <exclude-pattern>dist/*</exclude-pattern>
+  <exclude-pattern>.wordpress-org/*</exclude-pattern>
+  <exclude-pattern>.github/*</exclude-pattern>
+
+  <arg name="basepath" value="."/>
+  <arg name="extensions" value="php"/>
+  <arg value="sp"/>
+
+  <config name="testVersion" value="7.4-"/>
+
+  <rule ref="WordPress-Core"/>
+  <rule ref="WordPress-Docs"/>
+  <rule ref="WordPress-Extra"/>
+  <rule ref="WordPress.Security"/>
+  <rule ref="PHPCompatibilityWP"/>
+
+  <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+    <properties>
+      <property name="prefixes" type="array">
+        <element value="md_for_agents"/>
+      </property>
+    </properties>
+  </rule>
+
+  <rule ref="WordPress.WP.EnqueuedResourceParameters.NotInFooter">
+    <exclude name="WordPress.WP.EnqueuedResourceParameters.MissingVersion"/>
+  </rule>
+</ruleset>

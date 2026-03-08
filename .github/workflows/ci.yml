@@ -1,0 +1,70 @@
+name: "🧪 CI"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  php-lint:
+    name: "🐘 PHP ${{ matrix.php-version }} lint"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['7.4', '8.0', '8.1', '8.2', '8.3']
+
+    steps:
+      - name: "📥 Check out repository"
+        uses: actions/checkout@v4
+
+      - name: "⚙️ Set up PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: none
+
+      - name: "🔎 Lint plugin PHP files"
+        run: find . -name "*.php" -not -path "./.git/*" -print0 | xargs -0 -n1 php -l
+
+  php-quality:
+    name: "🧹 PHP quality & security rules"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "📥 Check out repository"
+        uses: actions/checkout@v4
+
+      - name: "⚙️ Set up PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+          tools: composer:v2
+
+      - name: "📦 Install PHP tooling"
+        run: composer install --no-interaction --no-progress
+
+      - name: "🧼 Run PHPCS"
+        run: vendor/bin/phpcs --standard=phpcs.xml.dist
+
+  package-plugin:
+    name: "📦 Package plugin"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "📥 Check out repository"
+        uses: actions/checkout@v4
+
+      - name: "🛠️ Build distributable ZIP"
+        run: |
+          chmod +x package-plugin.sh
+          ./package-plugin.sh
+
+      - name: "⬆️ Upload plugin artifact"
+        uses: actions/upload-artifact@v4
+        with:
+          name: wp-markdown-for-agents-zip
+          path: dist/wp-markdown-for-agents.zip
+          if-no-files-found: error

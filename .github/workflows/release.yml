@@ -1,0 +1,44 @@
+name: "🚀 Release"
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: "🏷️ Create release"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "📥 Check out repository"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: "🛠️ Build distributable ZIP"
+        run: |
+          chmod +x package-plugin.sh
+          ./package-plugin.sh
+
+      - name: "📝 Build changelog"
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v5
+        with:
+          configuration: release-changelog-builder-config.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "🎉 Create GitHub release"
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ github.ref_name }}
+          body: ${{ steps.build_changelog.outputs.changelog }}
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          files: dist/wp-markdown-for-agents.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

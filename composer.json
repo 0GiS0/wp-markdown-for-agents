@@ -1,0 +1,22 @@
+{
+  "name": "0gis0/wp-markdown-for-agents",
+  "description": "Development tooling for the Markdown for AI Agents WordPress plugin.",
+  "type": "project",
+  "require": {},
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "phpcompatibility/phpcompatibility-wp": "^2.1",
+    "squizlabs/php_codesniffer": "^3.10",
+    "wp-coding-standards/wpcs": "^3.1"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    },
+    "sort-packages": true
+  },
+  "scripts": {
+    "lint": "phpcs",
+    "lint:php": "phpcs --standard=phpcs.xml.dist"
+  }
+}

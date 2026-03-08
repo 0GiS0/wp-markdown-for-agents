@@ -1,0 +1,57 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/php
+{
+	"name": "🐘 wp-markdown-for-agents",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "workspace",
+	"runServices": [
+		"workspace",
+		"wordpress",
+		"db"
+	],
+	"workspaceFolder": "/workspaces/wp-markdown-for-agents",
+	"shutdownAction": "stopCompose",
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [
+		8080
+	],
+	"portsAttributes": {
+		"8080": {
+			"label": "📰 WordPress",
+			"onAutoForward": "notify"
+		}
+	},
+	"postCreateCommand": "./install-git-hooks.sh",
+	"postStartCommand": "bash .devcontainer/post-start.sh",
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"php.validate.executablePath": "/usr/local/bin/php",
+				"files.associations": {
+					"*.inc": "php"
+				},
+				"[php]": {
+					"editor.formatOnSave": false
+				},
+				"intelephense.environment.phpVersion": "8.3.0",
+				"intelephense.files.exclude": [
+					"vendor/**"
+				],
+				"search.exclude": {
+					"vendor": true
+				}
+			},
+			"extensions": [
+				"GitHub.vscode-github-actions",
+				"bmewburn.vscode-intelephense-client",
+				"DEVSENSE.composer-php-vscode",
+				"xdebug.php-debug"
+			]
+		}
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/github-cli:1": {}
+	}
+
+}

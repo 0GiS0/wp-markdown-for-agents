@@ -1,5 +1,7 @@
 # Markdown for AI Agents 📄
 
+![Markdown for AI Agents banner](.github/assets/wp-markdown-for-agents-banner.svg)
+
 A lightweight WordPress plugin that lets AI agents (and humans) retrieve any post or page as clean Markdown — just append `?format=markdown` to any URL.
 
 ## Features

@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 280" width="960" height="280">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="50%" style="stop-color:#16213e"/>
+      <stop offset="100%" style="stop-color:#0f3460"/>
+    </linearGradient>
+    <linearGradient id="accentGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d2ff"/>
+      <stop offset="100%" style="stop-color:#3a7bd5"/>
+    </linearGradient>
+    <linearGradient id="circuitGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d2ff;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#7b2ff7;stop-opacity:0.8"/>
+    </linearGradient>
+    <linearGradient id="textGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d2ff"/>
+      <stop offset="100%" style="stop-color:#7b2ff7"/>
+    </linearGradient>
+    <filter id="glow2" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="softGlow2" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="shadow2">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    <filter id="textGlow2b" x="-5%" y="-10%" width="110%" height="120%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect x="16" y="16" width="928" height="248" rx="32" ry="32" fill="url(#bgGrad2)" filter="url(#shadow2)"/>
+  
+  <!-- Grid -->
+  <g opacity="0.05" stroke="#00d2ff" stroke-width="0.5">
+    <line x1="16" y1="80" x2="944" y2="80"/>
+    <line x1="16" y1="140" x2="944" y2="140"/>
+    <line x1="16" y1="200" x2="944" y2="200"/>
+    <line x1="160" y1="16" x2="160" y2="264"/>
+    <line x1="320" y1="16" x2="320" y2="264"/>
+    <line x1="480" y1="16" x2="480" y2="264"/>
+    <line x1="640" y1="16" x2="640" y2="264"/>
+    <line x1="800" y1="16" x2="800" y2="264"/>
+  </g>
+
+  <!-- Circuit traces -->
+  <g stroke="url(#circuitGrad2)" stroke-width="1.2" fill="none" opacity="0.25">
+    <path d="M50,60 L80,60 L80,40"/>
+    <circle cx="80" cy="37" r="2.5" fill="#00d2ff"/>
+    <path d="M910,60 L880,60 L880,40"/>
+    <circle cx="880" cy="37" r="2.5" fill="#00d2ff"/>
+    <path d="M50,220 L80,220 L80,240"/>
+    <circle cx="80" cy="243" r="2.5" fill="#7b2ff7"/>
+    <path d="M910,220 L880,220 L880,240"/>
+    <circle cx="880" cy="243" r="2.5" fill="#7b2ff7"/>
+  </g>
+
+  <!-- Left side: Icon -->
+  <g transform="translate(80, 44)">
+    <!-- Document outline -->
+    <g filter="url(#softGlow2)">
+      <rect x="20" y="8" width="152" height="172" rx="8" ry="8" fill="none" stroke="#00d2ff" stroke-width="1.5" opacity="0.2"/>
+    </g>
+    
+    <!-- Markdown symbol -->
+    <g filter="url(#glow2)">
+      <rect x="24" y="24" width="144" height="100" rx="12" ry="12" fill="none" stroke="url(#accentGrad2)" stroke-width="2.5" opacity="0.9"/>
+      
+      <g fill="#ffffff">
+        <rect x="46" y="46" width="12" height="58" rx="2"/>
+        <polygon points="58,46 58,58 90,92 90,80"/>
+        <polygon points="122,46 122,58 90,92 90,80"/>
+        <rect x="122" y="46" width="12" height="58" rx="2"/>
+      </g>
+      
+      <g fill="#ffffff">
+        <rect x="144" y="46" width="10" height="38" rx="2"/>
+        <polygon points="149,96 162,82 136,82"/>
+      </g>
+    </g>
+
+    <!-- AI nodes -->
+    <g filter="url(#softGlow2)">
+      <circle cx="96" cy="4" r="6" fill="#00d2ff" opacity="0.8"/>
+      <circle cx="96" cy="4" r="3" fill="#ffffff" opacity="0.9"/>
+      <circle cx="4" cy="90" r="6" fill="#3a7bd5" opacity="0.8"/>
+      <circle cx="4" cy="90" r="3" fill="#ffffff" opacity="0.9"/>
+      <circle cx="188" cy="90" r="6" fill="#7b2ff7" opacity="0.8"/>
+      <circle cx="188" cy="90" r="3" fill="#ffffff" opacity="0.9"/>
+    </g>
+
+    <!-- Connection lines -->
+    <g stroke="url(#circuitGrad2)" stroke-width="0.8" opacity="0.2" stroke-dasharray="3,5">
+      <line x1="96" y1="10" x2="96" y2="24"/>
+      <line x1="10" y1="90" x2="24" y2="90"/>
+      <line x1="168" y1="90" x2="182" y2="90"/>
+    </g>
+  </g>
+
+  <!-- Right side: Text -->
+  <g filter="url(#textGlow2b)">
+    <text x="350" y="122" font-family="'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace" font-weight="700" font-size="46" fill="url(#textGrad2)" letter-spacing="-1">wp-markdown</text>
+    <text x="350" y="170" font-family="'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace" font-weight="400" font-size="38" fill="#ffffff" opacity="0.7" letter-spacing="0.5">for-agents</text>
+  </g>
+
+  <!-- AI badge -->
+  <g>
+    <rect x="748" y="102" width="50" height="24" rx="12" fill="#7b2ff7" opacity="0.9"/>
+    <text x="773" y="119" text-anchor="middle" font-family="'SF Pro Display', 'Helvetica Neue', sans-serif" font-weight="700" font-size="13" fill="#ffffff" letter-spacing="1">AI</text>
+  </g>
+
+  <!-- Tagline -->
+  <text x="350" y="210" font-family="'SF Pro Display', 'Helvetica Neue', sans-serif" font-weight="400" font-size="16" fill="#ffffff" opacity="0.35" letter-spacing="2">WORDPRESS CONTENT FOR AI AGENTS</text>
+
+</svg>
