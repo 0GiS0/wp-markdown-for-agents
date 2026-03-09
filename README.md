@@ -1,7 +1,7 @@
 # Markdown for AI Agents
 
 <p align="center">
-  <img src=".github/assets/wp-markdown-for-agents-banner.svg" alt="Markdown for AI Agents banner" />
+  <img src=".wordpress-org/source/wp-markdown-for-agents-banner-retina.svg" alt="Markdown for AI Agents banner" />
 </p>
 
 <p align="center">
@@ -134,10 +134,6 @@ Built by [Gisela Torres](https://github.com/0GiS0). If you want more developer c
 
 </div>
 
-- [YouTube: return(GiS)](https://www.youtube.com/@returngis)
-- [Blog: return(GiS)](https://www.returngis.net/)
-- [X / Twitter: @0GiS0](https://twitter.com/0GiS0)
-- [Mastodon](https://hachyderm.io/@0gis0)
 
 ## License
 
