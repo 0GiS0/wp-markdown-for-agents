@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ..:/workspaces/markdown-view-for-ai-agents:cached
+      - ..:/workspaces/wp-markdown-for-agents:cached
       - composer-cache:/home/vscode/.composer/cache
       - wordpress-data:/srv/wordpress
       - plugins:/home/vscode/.local/share/plugins

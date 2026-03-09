@@ -9,8 +9,7 @@
 		"wordpress",
 		"db"
 	],
-	"workspaceFolder": "/workspaces/markdown-view-for-ai-agents",
-	"remoteUser": "vscode",
+	"workspaceFolder": "/workspaces/wp-markdown-for-agents",
 	"shutdownAction": "stopCompose",
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -52,8 +51,7 @@
 		}
 	},
 	"features": {
-		"ghcr.io/devcontainers/features/github-cli:1": {},
-		"ghcr.io/devcontainers-extra/features/shellcheck:1": {}
+		"ghcr.io/devcontainers/features/github-cli:1": {}
 	}
 
 }

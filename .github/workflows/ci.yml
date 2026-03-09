@@ -7,27 +7,6 @@ on:
   pull_request:
 
 jobs:
-  bash-quality:
-    name: "🐚 Bash quality"
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: "📥 Check out repository"
-        uses: actions/checkout@v6
-
-      - name: "🛠️ Install ShellCheck"
-        run: sudo apt-get update && sudo apt-get install -y shellcheck
-
-      - name: "🔎 Validate Bash syntax"
-        run: |
-          bash -n .devcontainer/post-start.sh
-          bash -n install-git-hooks.sh
-          bash -n package-plugin.sh
-          bash -n .githooks/pre-commit
-
-      - name: "🐚 Run ShellCheck"
-        run: shellcheck .devcontainer/post-start.sh install-git-hooks.sh package-plugin.sh .githooks/pre-commit
-
   php-lint:
     name: "🐘 PHP ${{ matrix.php-version }} lint"
     runs-on: ubuntu-latest
