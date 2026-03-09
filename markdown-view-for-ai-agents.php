@@ -28,6 +28,7 @@ define( 'MD_FOR_AGENTS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 require_once MD_FOR_AGENTS_PLUGIN_DIR . 'includes/class-md-for-agents-markdown-converter.php';
 require_once MD_FOR_AGENTS_PLUGIN_DIR . 'includes/class-md-for-agents-button-injector.php';
 require_once MD_FOR_AGENTS_PLUGIN_DIR . 'includes/class-md-for-agents-url-handler.php';
+require_once MD_FOR_AGENTS_PLUGIN_DIR . 'includes/class-md-for-agents-admin-settings.php';
 
 /**
  * Initialize the plugin.
@@ -36,6 +37,10 @@ function md_for_agents_init() {
 	$converter = new MD_For_Agents_Markdown_Converter();
 	new MD_For_Agents_Button_Injector();
 	new MD_For_Agents_URL_Handler( $converter );
+
+	if ( is_admin() ) {
+		new MD_For_Agents_Admin_Settings();
+	}
 }
 add_action( 'init', 'md_for_agents_init' );
 

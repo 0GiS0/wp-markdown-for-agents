@@ -48,6 +48,19 @@
       "group": "test"
     },
     {
+      "label": "lint bash",
+      "type": "shell",
+      "command": "shellcheck",
+      "args": [
+        ".devcontainer/post-start.sh",
+        "install-git-hooks.sh",
+        "package-plugin.sh",
+        ".githooks/pre-commit"
+      ],
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
       "label": "lint all",
       "type": "shell",
       "command": "composer",

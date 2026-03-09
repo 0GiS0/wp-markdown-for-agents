@@ -7,22 +7,22 @@ if ! command -v php >/dev/null 2>&1; then
   exit 0
 fi
 
-staged_php_files="$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.php$' || true)"
+mapfile -t staged_php_files < <(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.php$' || true)
 
-if [[ -z "$staged_php_files" ]]; then
+if [[ ${#staged_php_files[@]} -eq 0 ]]; then
   echo "No staged PHP files."
   exit 0
 fi
 
 echo "Running PHP syntax checks on staged files..."
-while IFS= read -r file; do
+for file in "${staged_php_files[@]}"; do
   [[ -z "$file" ]] && continue
   php -l "$file" >/dev/null
-done <<< "$staged_php_files"
+done
 
 if [[ -x "vendor/bin/phpcs" ]]; then
   echo "Running PHPCS on staged files..."
-  vendor/bin/phpcs --standard=phpcs.xml.dist $staged_php_files
+  vendor/bin/phpcs --standard=phpcs.xml.dist "${staged_php_files[@]}"
 else
   echo "PHPCS is not installed. Run 'composer install' to enable quality and security checks."
 fi

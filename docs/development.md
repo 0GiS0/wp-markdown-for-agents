@@ -34,6 +34,14 @@ wp post list --post_type=post,page --fields=ID,post_type,post_title,post_status 
 
 PHP auto-format on save is disabled in the dev container because Intelephense formatting conflicts with the repository WPCS ruleset. Use the `fix php style` VS Code task or run `vendor/bin/phpcbf --standard=phpcs.xml.dist` when you want to apply style fixes.
 
+Bash scripts can be checked locally with ShellCheck:
+
+```bash
+shellcheck .devcontainer/post-start.sh install-git-hooks.sh package-plugin.sh .githooks/pre-commit
+```
+
+There is also a `lint bash` VS Code task for the same check.
+
 Install the PHP development tools:
 
 ```bash
@@ -53,6 +61,7 @@ The pre-commit hook will:
 
 ## GitHub Actions
 
+- `🐚 Bash quality` runs `bash -n` and `shellcheck` on repository shell scripts
 - `🧪 CI` runs PHP syntax checks, PHPCS quality checks, and packaging
 - `🔐 Dependency Review` reviews dependency changes in pull requests
 

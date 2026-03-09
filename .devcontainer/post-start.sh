@@ -1,22 +1,78 @@
 #!/usr/bin/env bash
 
-set -eu
+set -euo pipefail
 
-wp_path="/srv/wordpress"
-site_url="http://localhost:8080"
+wp_path="${WP_PATH:-/srv/wordpress}"
+site_url="${SITE_URL:-http://localhost:8080}"
+site_title="${WORDPRESS_SITE_TITLE:-Markdown View for AI Agents}"
+admin_user="${WORDPRESS_ADMIN_USER:-admin}"
+admin_password="${WORDPRESS_ADMIN_PASSWORD:-admin}"
+admin_email="${WORDPRESS_ADMIN_EMAIL:-admin@example.com}"
 sample_seed_option="md_for_agents_sample_content_seeded"
-plugin_check_dir="/home/vscode/.local/share/plugins/plugin-check"
+plugin_check_dir="${PLUGIN_CHECK_DIR:-/home/vscode/.local/share/plugins/plugin-check}"
 plugin_check_main_file="$plugin_check_dir/plugin-check.php"
 plugin_check_cli_file="$plugin_check_dir/cli.php"
+max_attempts="${BOOTSTRAP_MAX_ATTEMPTS:-30}"
+retry_delay_seconds="${BOOTSTRAP_RETRY_DELAY_SECONDS:-2}"
 
 export XDEBUG_MODE=off
 
+log() {
+	echo "[post-start] $*"
+}
+
 wp_cli() {
+	# Keep the WordPress path in one place for every WP-CLI call.
 	wp --path="$wp_path" "$@"
 }
 
+retry_until() {
+	# Retry transient bootstrap steps while MySQL and WordPress volumes come up.
+	local attempt=1
+	local max_retries="$1"
+	local delay_seconds="$2"
+	shift 2
+
+	while [ "$attempt" -le "$max_retries" ]; do
+		if "$@"; then
+			return 0
+		fi
+		sleep "$delay_seconds"
+		attempt=$((attempt + 1))
+	done
+
+	return 1
+	}
+
+ensure_writable_dir() {
+	# The shared plugins volume may be owned by another container user on first boot.
+	local target_dir="$1"
+	local current_user
+	local current_group
+
+	current_user="$(id -un)"
+	current_group="$(id -gn)"
+
+	if mkdir -p "$target_dir" 2>/dev/null; then
+		return 0
+	fi
+
+	if ! command -v sudo >/dev/null 2>&1; then
+		echo "Cannot create $target_dir and sudo is unavailable." >&2
+		exit 1
+	fi
+
+	sudo mkdir -p "$target_dir"
+	sudo chown -R "$current_user:$current_group" "$target_dir"
+}
+
 ensure_plugin_check_files() {
-	mkdir -p "$plugin_check_dir"
+	# Plugin Check is stored on the shared plugins volume so WP-CLI can load its CLI file.
+	local tmp_dir
+	local archive
+	local extracted_dir
+
+	ensure_writable_dir "$plugin_check_dir"
 
 	if [ -f "$plugin_check_main_file" ] && [ -f "$plugin_check_cli_file" ]; then
 		return 0
@@ -25,6 +81,8 @@ ensure_plugin_check_files() {
 	tmp_dir="$(mktemp -d)"
 	archive="$tmp_dir/plugin-check.zip"
 	extracted_dir="$tmp_dir/plugin-check"
+
+	log "📦 Installing plugin-check into $plugin_check_dir"
 
 	cleanup_plugin_check_tmp() {
 		rm -rf "$tmp_dir"
@@ -43,10 +101,12 @@ ensure_plugin_check_files() {
 }
 
 upsert_post() {
-	post_type="$1"
-	post_slug="$2"
-	post_title="$3"
-	post_content="$4"
+	# Reuse the same helper for create-or-update behavior so seeding stays idempotent.
+	local post_type="$1"
+	local post_slug="$2"
+	local post_title="$3"
+	local post_content="$4"
+	local post_id
 
 	post_id="$(wp_cli post list --post_type="$post_type" --name="$post_slug" --field=ID 2>/dev/null | head -n 1 || true)"
 
@@ -69,9 +129,11 @@ upsert_post() {
 }
 
 set_post_terms() {
-	post_slug="$1"
-	taxonomy="$2"
-	terms_csv="$3"
+	# Taxonomies are assigned after creation to keep content payloads easier to read.
+	local post_slug="$1"
+	local taxonomy="$2"
+	local terms_csv="$3"
+	local post_id
 
 	post_id="$(wp_cli post list --post_type=post --name="$post_slug" --field=ID 2>/dev/null | head -n 1 || true)"
 
@@ -83,6 +145,14 @@ set_post_terms() {
 }
 
 seed_sample_content() {
+	# Seed a predictable content set that exercises the plugin's markdown conversion paths.
+	local getting_started_page_id
+	local hello_world_id
+	local sample_page_id
+	local privacy_policy_id
+
+	log "🌱 Seeding demo content"
+
 	getting_started_page_id="$(upsert_post \
 		page \
 		getting-started-markdown-agents \
@@ -162,23 +232,14 @@ wp option get siteurl --path=/srv/wordpress</code></pre><!-- /wp:code --><!-- wp
 	fi
 }
 
-if [ ! -d "$wp_path" ]; then
-	exit 0
-fi
-
-attempt=1
-max_attempts=30
-
-while [ "$attempt" -le "$max_attempts" ]; do
+ensure_wp_config() {
+	# Create wp-config.php on demand for a fresh local database.
 	if [ -f "$wp_path/wp-config.php" ]; then
-		break
+		return 0
 	fi
-	sleep 2
-	attempt=$((attempt + 1))
-done
 
-if [ ! -f "$wp_path/wp-config.php" ]; then
 	if [ -n "${WORDPRESS_DB_HOST:-}" ] && [ -n "${WORDPRESS_DB_NAME:-}" ] && [ -n "${WORDPRESS_DB_USER:-}" ] && [ -n "${WORDPRESS_DB_PASSWORD:-}" ]; then
+		log "📝 Creating wp-config.php"
 		wp config create \
 			--path="$wp_path" \
 			--dbname="$WORDPRESS_DB_NAME" \
@@ -189,43 +250,46 @@ if [ ! -f "$wp_path/wp-config.php" ]; then
 			--force >/dev/null 2>&1 || true
 	fi
 
-	if [ ! -f "$wp_path/wp-config.php" ]; then
-		echo "WordPress config is not ready yet; skipping local bootstrap."
-		exit 0
+	[ -f "$wp_path/wp-config.php" ]
+}
+
+ensure_wordpress_installed() {
+	# Install WordPress once the database accepts connections.
+	if wp_cli core is-installed >/dev/null 2>&1; then
+		return 0
 	fi
+
+	log "🚀 Installing WordPress"
+	wp_cli core install \
+		--url="$site_url" \
+		--title="$site_title" \
+		--admin_user="$admin_user" \
+		--admin_password="$admin_password" \
+		--admin_email="$admin_email" \
+		--skip-email >/dev/null 2>&1
+}
+
+if [ ! -d "$wp_path" ]; then
+	exit 0
 fi
 
-installed=0
-attempt=1
+# Wait for the mounted WordPress root and generated config to become usable.
+if ! retry_until "$max_attempts" "$retry_delay_seconds" ensure_wp_config; then
+	log "⏭️ WordPress config is not ready yet; skipping local bootstrap."
+	exit 0
+fi
 
-while [ "$attempt" -le "$max_attempts" ]; do
-	if wp_cli core is-installed >/dev/null 2>&1; then
-		installed=1
-		break
-	fi
-
-	if wp_cli core install \
-		--url="$site_url" \
-		--title="Markdown View for AI Agents" \
-		--admin_user="admin" \
-		--admin_password="admin" \
-		--admin_email="admin@example.com" \
-		--skip-email >/dev/null 2>&1; then
-		installed=1
-		break
-	fi
-
-	sleep 2
-	attempt=$((attempt + 1))
-done
-
-if [ "$installed" -eq 0 ]; then
-	echo "WordPress database bootstrap is not ready yet; skipping local site installation."
+# Install the site after config exists and the database is actually ready.
+if ! retry_until "$max_attempts" "$retry_delay_seconds" ensure_wordpress_installed; then
+	log "⏭️ WordPress database bootstrap is not ready yet; skipping local site installation."
 	exit 0
 fi
 
 ensure_plugin_check_files
 
+log "⚙️ Configuring local WordPress site"
+
+# Keep local URLs stable and activate the tools this repository expects.
 wp_cli option update blog_public 0 >/dev/null 2>&1 || true
 wp_cli rewrite structure '/%postname%/' >/dev/null 2>&1 || true
 wp_cli rewrite flush --hard >/dev/null 2>&1 || true
