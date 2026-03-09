@@ -22,8 +22,8 @@ mkdir -p "$STAGING_DIR/$PLUGIN_DIR"
 cp -R \
   "$SCRIPT_DIR/assets" \
   "$SCRIPT_DIR/includes" \
+  "$SCRIPT_DIR/LICENSE" \
   "$SCRIPT_DIR/readme.txt" \
-  "$SCRIPT_DIR/README.md" \
   "$SCRIPT_DIR/wp-markdown-for-agents.php" \
   "$STAGING_DIR/$PLUGIN_DIR/"
 

@@ -34,7 +34,7 @@ class MD_For_Agents_Button_Injector {
 		}
 
 		$url  = add_query_arg( 'format', 'markdown', get_permalink() );
-		$text = esc_html__( 'View as Markdown', 'md-for-agents' );
+		$text = esc_html__( 'View as Markdown', 'markdown-for-ai-agents' );
 
 		$button = sprintf(
 			'<div class="md-agent-button-wrapper">' .
