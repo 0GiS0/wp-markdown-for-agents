@@ -4,7 +4,7 @@ Tags: markdown, ai, agents, content, export
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,10 @@ Yes. The plugin caches the generated Markdown for 1 hour using WordPress transie
 
 == Upgrade Notice ==
 
+= 1.0.2 =
+
+Aligned the distributed plugin slug and WordPress.org assets, and improved local validation for Plugin Check.
+
 = 1.0.1 =
 
 Improved WordPress.org readme content and public plugin metadata.
@@ -73,6 +77,11 @@ Improved WordPress.org readme content and public plugin metadata.
 Initial public release.
 
 == Changelog ==
+
+= 1.0.2 =
+* aligned the distributed plugin slug with `markdown-for-ai-agents`
+* removed WordPress.org Plugin Check warnings from the plugin bootstrap
+* added Plugin Check support and SVG-to-PNG tooling to the dev container workflow
 
 = 1.0.1 =
 * Improved WordPress.org readme formatting and public metadata
