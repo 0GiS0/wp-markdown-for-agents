@@ -2,7 +2,7 @@
 <ruleset name="Markdown for AI Agents">
   <description>PHP quality and security checks for the plugin.</description>
 
-  <file>wp-markdown-for-agents.php</file>
+  <file>markdown-for-ai-agents.php</file>
   <file>includes</file>
 
   <exclude-pattern>vendor/*</exclude-pattern>

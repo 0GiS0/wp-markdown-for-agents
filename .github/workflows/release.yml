@@ -39,6 +39,6 @@ jobs:
           body: ${{ steps.build_changelog.outputs.changelog }}
           draft: false
           prerelease: ${{ contains(github.ref_name, '-') }}
-          files: dist/wp-markdown-for-agents.zip
+          files: dist/markdown-for-ai-agents.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

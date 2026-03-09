@@ -12,6 +12,7 @@
 
 - Run the relevant local checks whenever you implement or modify behavior.
 - At minimum, run `composer lint:php` before opening or updating a pull request.
+- Run the local Plugin Check validation before pushing changes or updating a pull request. Use `wp --path=/srv/wordpress plugin check markdown-for-ai-agents --require=/srv/wordpress/wp-content/plugins/plugin-check/cli.php --exclude-directories=.devcontainer,.github,vendor,dist --exclude-files=.gitignore,install-git-hooks.sh,package-plugin.sh,phpcs.xml.dist,AGENTS.md` or the equivalent `plugin check` VS Code task.
 - Run `composer lint` when you want the repository-standard PHPCS checks.
 - If packaging, release automation, or distributable contents changed, also verify `./package-plugin.sh` or the equivalent packaging task.
 - Do not merge changes that have not been validated locally unless there is a documented reason.
@@ -41,7 +42,7 @@ If a pull request should not appear in the changelog, use `skip-changelog`.
 ## Versioning
 
 - Use SemVer for plugin versions and git tags.
-- Keep the plugin header version and the `MD_FOR_AGENTS_VERSION` constant in `wp-markdown-for-agents.php` aligned.
+- Keep the plugin header version and the `MD_FOR_AGENTS_VERSION` constant in `markdown-for-ai-agents.php` aligned.
 - Decide the version bump in every release-facing pull request.
 
 SemVer rules for this repository:
@@ -65,10 +66,11 @@ Practical rule:
 Recommended release flow:
 
 1. Merge the release-ready pull request into `main`.
-2. Confirm the plugin version in `wp-markdown-for-agents.php` matches the intended release version.
+2. Confirm the plugin version in `markdown-for-ai-agents.php` matches the intended release version.
 3. Confirm merged pull requests included in the release have exactly one changelog category label, or `skip-changelog`.
-4. Create and push the tag from `main`, for example `v1.0.1`.
-5. Verify the generated GitHub release body and attached ZIP.
+4. Review the current WordPress.org Detailed Plugin Guidelines before generating a new release: `https://developer.wordpress.org/plugins/wordpress-org/detailed-plugin-guidelines/`.
+5. Create and push the tag from `main`, for example `v1.0.1`.
+6. Verify the generated GitHub release body and attached ZIP.
 
 ## Changelog Notes
 

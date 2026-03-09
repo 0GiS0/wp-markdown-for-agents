@@ -15,7 +15,6 @@
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       markdown-for-ai-agents
- * Domain Path:       /languages
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,8 +33,6 @@ require_once MD_FOR_AGENTS_PLUGIN_DIR . 'includes/class-md-for-agents-url-handle
  * Initialize the plugin.
  */
 function md_for_agents_init() {
-	load_plugin_textdomain( 'markdown-for-ai-agents', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-
 	$converter = new MD_For_Agents_Markdown_Converter();
 	new MD_For_Agents_Button_Injector();
 	new MD_For_Agents_URL_Handler( $converter );

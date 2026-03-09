@@ -35,7 +35,7 @@ Typical use cases:
 
 == Installation ==
 
-1. Upload the `wp-markdown-for-agents` folder to the `/wp-content/plugins/` directory, or install the plugin through the WordPress admin.
+1. Upload the `markdown-for-ai-agents` folder to the `/wp-content/plugins/` directory, or install the plugin through the WordPress admin.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
 3. Open any published post or page.
 4. Click the "View as Markdown" button, or append `?format=markdown` to the URL.

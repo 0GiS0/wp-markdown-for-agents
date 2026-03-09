@@ -141,8 +141,8 @@
 
   <!-- Right side: Text -->
   <g filter="url(#textGlow)">
-    <!-- wp-markdown -->
-    <text x="580" y="210" font-family="'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace" font-weight="700" font-size="76" fill="url(#textGrad)" letter-spacing="-1">wp-markdown</text>
+    <!-- markdown -->
+    <text x="580" y="210" font-family="'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace" font-weight="700" font-size="76" fill="url(#textGrad)" letter-spacing="-1">markdown</text>
     <!-- for-agents -->
     <text x="580" y="290" font-family="'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace" font-weight="400" font-size="62" fill="#ffffff" opacity="0.7" letter-spacing="1">for-agents</text>
   </g>

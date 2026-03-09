@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-PLUGIN_DIR="wp-markdown-for-agents"
+PLUGIN_DIR="markdown-for-ai-agents"
 OUTPUT_DIR="dist"
 OUTPUT_FILE="$OUTPUT_DIR/${PLUGIN_DIR}.zip"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -24,7 +24,7 @@ cp -R \
   "$SCRIPT_DIR/includes" \
   "$SCRIPT_DIR/LICENSE" \
   "$SCRIPT_DIR/readme.txt" \
-  "$SCRIPT_DIR/wp-markdown-for-agents.php" \
+  "$SCRIPT_DIR/markdown-for-ai-agents.php" \
   "$STAGING_DIR/$PLUGIN_DIR/"
 
 ( cd "$STAGING_DIR" && zip -r "$SCRIPT_DIR/$OUTPUT_FILE" "$PLUGIN_DIR" )

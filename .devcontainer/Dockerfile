@@ -2,9 +2,11 @@ FROM mcr.microsoft.com/devcontainers/php:3-8.3-trixie
 
 RUN apt-get update \
 	&& export DEBIAN_FRONTEND=noninteractive \
-	&& apt-get install -y --no-install-recommends default-mysql-client libmariadb-dev \
+	&& apt-get install -y --no-install-recommends default-mysql-client libmariadb-dev librsvg2-bin \
 	&& docker-php-ext-install mysqli pdo_mysql \
 	&& curl -fsSL -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
 	&& chmod +x /usr/local/bin/wp \
+	&& mkdir -p /home/vscode/.local/share/plugins \
+	&& chown -R vscode:vscode /home/vscode/.local \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*

@@ -1,8 +1,8 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/php
 {
-	"name": "🧪 wp-markdown-for-agents",
-	"dockerComposeFile": "docker-compose.yml",
+	"name": "🧪 markdown-for-ai-agents",
+	"dockerComposeFile": "compose.yml",
 	"service": "workspace",
 	"runServices": [
 		"workspace",

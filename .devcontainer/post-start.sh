@@ -5,11 +5,41 @@ set -eu
 wp_path="/srv/wordpress"
 site_url="http://localhost:8080"
 sample_seed_option="md_for_agents_sample_content_seeded"
+plugin_check_dir="/home/vscode/.local/share/plugins/plugin-check"
+plugin_check_main_file="$plugin_check_dir/plugin-check.php"
+plugin_check_cli_file="$plugin_check_dir/cli.php"
 
 export XDEBUG_MODE=off
 
 wp_cli() {
 	wp --path="$wp_path" "$@"
+}
+
+ensure_plugin_check_files() {
+	mkdir -p "$plugin_check_dir"
+
+	if [ -f "$plugin_check_main_file" ] && [ -f "$plugin_check_cli_file" ]; then
+		return 0
+	fi
+
+	tmp_dir="$(mktemp -d)"
+	archive="$tmp_dir/plugin-check.zip"
+	extracted_dir="$tmp_dir/plugin-check"
+
+	cleanup_plugin_check_tmp() {
+		rm -rf "$tmp_dir"
+	}
+
+	trap cleanup_plugin_check_tmp RETURN
+
+	curl -fsSL -o "$archive" "https://downloads.wordpress.org/plugin/plugin-check.latest-stable.zip"
+	unzip -q "$archive" -d "$tmp_dir"
+
+	find "$plugin_check_dir" -mindepth 1 -maxdepth 1 ! -name '.gitkeep' -exec rm -rf {} +
+	cp -R "$extracted_dir"/. "$plugin_check_dir"/
+
+	trap - RETURN
+	cleanup_plugin_check_tmp
 }
 
 upsert_post() {
@@ -87,7 +117,7 @@ seed_sample_content() {
 		post \
 		code-blocks-and-tables \
 		'Code Blocks and Tables' \
-		"<!-- wp:paragraph --><p>This sample covers fenced code blocks and HTML tables converted into markdown tables.</p><!-- /wp:paragraph --><!-- wp:code --><pre class=\"wp-block-code\"><code lang=\"bash\">wp plugin activate wp-markdown-for-agents --path=/srv/wordpress
+		"<!-- wp:paragraph --><p>This sample covers fenced code blocks and HTML tables converted into markdown tables.</p><!-- /wp:paragraph --><!-- wp:code --><pre class=\"wp-block-code\"><code lang=\"bash\">wp plugin activate markdown-for-ai-agents --path=/srv/wordpress
 wp option get siteurl --path=/srv/wordpress</code></pre><!-- /wp:code --><!-- wp:table --><figure class=\"wp-block-table\"><table><thead><tr><th>Check</th><th>Expected result</th></tr></thead><tbody><tr><td>Code fence</td><td>Preserved with bash language</td></tr><tr><td>Table headers</td><td>Rendered as markdown table header row</td></tr></tbody></table></figure><!-- /wp:table -->" >/dev/null
 
 	upsert_post \
@@ -194,9 +224,12 @@ if [ "$installed" -eq 0 ]; then
 	exit 0
 fi
 
+ensure_plugin_check_files
+
 wp_cli option update blog_public 0 >/dev/null 2>&1 || true
 wp_cli rewrite structure '/%postname%/' >/dev/null 2>&1 || true
 wp_cli rewrite flush --hard >/dev/null 2>&1 || true
 wp_cli theme activate twentytwentythree >/dev/null 2>&1 || true
-wp_cli plugin activate wp-markdown-for-agents >/dev/null 2>&1 || true
+wp_cli plugin activate markdown-for-ai-agents >/dev/null 2>&1 || true
+wp_cli plugin activate plugin-check >/dev/null 2>&1 || true
 seed_sample_content

@@ -64,6 +64,22 @@
         "--standard=phpcs.xml.dist"
       ],
       "problemMatcher": []
+    },
+    {
+      "label": "plugin check",
+      "type": "shell",
+      "command": "wp",
+      "args": [
+        "--path=/srv/wordpress",
+        "plugin",
+        "check",
+        "markdown-for-ai-agents",
+        "--require=/srv/wordpress/wp-content/plugins/plugin-check/cli.php",
+        "--exclude-directories=.devcontainer,.github,vendor,dist",
+        "--exclude-files=.gitignore,install-git-hooks.sh,package-plugin.sh,phpcs.xml.dist,AGENTS.md"
+      ],
+      "problemMatcher": [],
+      "group": "test"
     }
   ]
 }

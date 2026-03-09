@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/0GiS0/wp-markdown-for-agents/releases/latest"><img src="https://img.shields.io/github/v/release/0GiS0/wp-markdown-for-agents?display_name=tag&amp;label=latest%20release" alt="Latest release" /></a>
-  <a href="https://github.com/0GiS0/wp-markdown-for-agents/releases/latest/download/wp-markdown-for-agents.zip"><img src="https://img.shields.io/badge/download-latest%20ZIP-2ea44f?logo=github" alt="Download ZIP" /></a>
+  <a href="https://github.com/0GiS0/wp-markdown-for-agents/releases/latest/download/markdown-for-ai-agents.zip"><img src="https://img.shields.io/badge/download-latest%20ZIP-2ea44f?logo=github" alt="Download ZIP" /></a>
   <a href="https://github.com/0GiS0/wp-markdown-for-agents/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/0GiS0/wp-markdown-for-agents/ci.yml?branch=main&amp;label=ci" alt="CI" /></a>
   <a href="https://wordpress.org/"><img src="https://img.shields.io/badge/WordPress-5.0%2B-21759B?logo=wordpress&amp;logoColor=white" alt="WordPress 5.0+" /></a>
   <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-7.4%2B-777BB4?logo=php&amp;logoColor=white" alt="PHP 7.4+" /></a>
@@ -16,7 +16,7 @@
 Turn WordPress posts and pages into clean Markdown for AI agents, automation tools, and humans. Add `?format=markdown` to any singular post or page URL and the plugin returns a Markdown response with YAML frontmatter and Markdown-friendly content.
 
 > [!TIP]
-> Want the fastest install path? Download the latest plugin package here: [wp-markdown-for-agents.zip](https://github.com/0GiS0/wp-markdown-for-agents/releases/latest/download/wp-markdown-for-agents.zip)
+> Want the fastest install path? Download the latest plugin package here: [markdown-for-ai-agents.zip](https://github.com/0GiS0/wp-markdown-for-agents/releases/latest/download/markdown-for-ai-agents.zip)
 
 This README is the GitHub landing page for releases, development, and creator links. The WordPress.org-specific plugin description stays in [readme.txt](https://github.com/0GiS0/wp-markdown-for-agents/blob/main/readme.txt).
 
@@ -33,7 +33,7 @@ This README is the GitHub landing page for releases, development, and creator li
 
 This is the recommended path if you just want to use the plugin in WordPress.
 
-1. Download the latest release asset: [wp-markdown-for-agents.zip](https://github.com/0GiS0/wp-markdown-for-agents/releases/latest/download/wp-markdown-for-agents.zip)
+1. Download the latest release asset: [markdown-for-ai-agents.zip](https://github.com/0GiS0/wp-markdown-for-agents/releases/latest/download/markdown-for-ai-agents.zip)
 2. In WordPress admin, go to Plugins > Add New Plugin > Upload Plugin.
 3. Upload the ZIP file and activate the plugin.
 4. Open any published post or page and click "View as Markdown", or append `?format=markdown` to the URL.
@@ -58,7 +58,7 @@ chmod +x package-plugin.sh
 ./package-plugin.sh
 ```
 
-That creates `dist/wp-markdown-for-agents.zip`.
+That creates `dist/markdown-for-ai-agents.zip`.
 
 ## Usage
 
@@ -116,7 +116,7 @@ Article content in clean Markdown...
 ## Project links
 
 - [Latest release](https://github.com/0GiS0/wp-markdown-for-agents/releases/latest)
-- [Download latest ZIP](https://github.com/0GiS0/wp-markdown-for-agents/releases/latest/download/wp-markdown-for-agents.zip)
+- [Download latest ZIP](https://github.com/0GiS0/wp-markdown-for-agents/releases/latest/download/markdown-for-ai-agents.zip)
 - [Development guide](https://github.com/0GiS0/wp-markdown-for-agents/blob/main/docs/development.md)
 - [Release workflow notes](https://github.com/0GiS0/wp-markdown-for-agents/blob/main/docs/releasing.md)
 - [WordPress.org readme](https://github.com/0GiS0/wp-markdown-for-agents/blob/main/readme.txt)
