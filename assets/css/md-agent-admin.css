@@ -1,0 +1,61 @@
+/**
+ * Markdown View for AI Agents - Admin settings styles
+ *
+ * Layout and preview panel for the plugin settings page.
+ */
+
+.md-agent-admin-layout {
+	display: flex;
+	gap: 2em;
+	align-items: flex-start;
+	margin-top: 1em;
+}
+
+.md-agent-admin-form {
+	flex: 1;
+	min-width: 0;
+}
+
+.md-agent-admin-preview-panel {
+	flex: 0 0 320px;
+	position: sticky;
+	top: 40px;
+}
+
+.md-agent-admin-preview-panel h2 {
+	margin-top: 0;
+	font-size: 1.1em;
+}
+
+.md-agent-admin-preview-area {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 1.5em;
+	min-height: 80px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#md-agent-preview-container .md-agent-button-wrapper {
+	margin-bottom: 0;
+}
+
+.md-agent-admin-preview-hidden {
+	color: #666;
+	font-style: italic;
+	text-align: center;
+}
+
+@media screen and (max-width: 960px) {
+	.md-agent-admin-layout {
+		flex-direction: column;
+	}
+
+	.md-agent-admin-preview-panel {
+		flex: none;
+		width: 100%;
+		position: static;
+	}
+}
